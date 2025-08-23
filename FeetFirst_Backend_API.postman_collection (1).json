@@ -1,0 +1,1926 @@
+{
+  "info": {
+    "name": "FeetFirst Backend API",
+    "description": "Complete API collection for FeetFirst Backend - Node.js to Django conversion reference",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "base_url",
+      "value": "http://localhost:3030/api",
+      "type": "string"
+    },
+    {
+      "key": "auth_token",
+      "value": "",
+      "type": "string"
+    },
+    {
+      "key": "admin_token",
+      "value": "",
+      "type": "string"
+    }
+  ],
+  "item": [
+    {
+      "name": "Authentication",
+      "item": [
+        {
+          "name": "Send OTP",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "phone",
+                  "value": "1234567890",
+                  "type": "text"
+                }
+              ]
+            },
+            "url": {
+              "raw": "{{base_url}}/auth/sendOTP",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "auth",
+                "sendOTP"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Sign Up",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "name",
+                  "value": "John Doe",
+                  "type": "text"
+                },
+                {
+                  "key": "email",
+                  "value": "john@example.com",
+                  "type": "text"
+                },
+                {
+                  "key": "phone",
+                  "value": "1234567890",
+                  "type": "text"
+                },
+                {
+                  "key": "password",
+                  "value": "password123",
+                  "type": "text"
+                },
+                {
+                  "key": "profile",
+                  "type": "file"
+                }
+              ]
+            },
+            "url": {
+              "raw": "{{base_url}}/auth/signUp",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "auth",
+                "signUp"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Login",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "phone",
+                  "value": "1234567890",
+                  "type": "text"
+                },
+                {
+                  "key": "password",
+                  "value": "password123",
+                  "type": "text"
+                }
+              ]
+            },
+            "url": {
+              "raw": "{{base_url}}/auth/login",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "auth",
+                "login"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Verify OTP",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "phone",
+                  "value": "1234567890",
+                  "type": "text"
+                },
+                {
+                  "key": "otp",
+                  "value": "123456",
+                  "type": "text"
+                }
+              ]
+            },
+            "url": {
+              "raw": "{{base_url}}/auth/verifyOTP",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "auth",
+                "verifyOTP"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Forgot Password",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "phone",
+                  "value": "1234567890",
+                  "type": "text"
+                }
+              ]
+            },
+            "url": {
+              "raw": "{{base_url}}/auth/forgotPassword",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "auth",
+                "forgotPassword"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Update Password",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "phone",
+                  "value": "1234567890",
+                  "type": "text"
+                },
+                {
+                  "key": "otp",
+                  "value": "123456",
+                  "type": "text"
+                },
+                {
+                  "key": "newPassword",
+                  "value": "newpassword123",
+                  "type": "text"
+                }
+              ]
+            },
+            "url": {
+              "raw": "{{base_url}}/auth/updatePassword",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "auth",
+                "updatePassword"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Refresh Token",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "userId",
+                  "value": "user_id_here",
+                  "type": "text"
+                }
+              ]
+            },
+            "url": {
+              "raw": "{{base_url}}/auth/refreshToken",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "auth",
+                "refreshToken"
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "User Management",
+      "item": [
+        {
+          "name": "Update Profile",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{auth_token}}"
+              }
+            ],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "name",
+                  "value": "Updated Name",
+                  "type": "text"
+                },
+                {
+                  "key": "email",
+                  "value": "updated@example.com",
+                  "type": "text"
+                },
+                {
+                  "key": "profile",
+                  "type": "file"
+                }
+              ]
+            },
+            "url": {
+              "raw": "{{base_url}}/user/updateProfile",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "user",
+                "updateProfile"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Upload PDF",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{auth_token}}"
+              }
+            ],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "pdf",
+                  "type": "file"
+                }
+              ]
+            },
+            "url": {
+              "raw": "{{base_url}}/user/uploadPDF",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "user",
+                "uploadPDF"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Change Password",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{auth_token}}"
+              }
+            ],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "currentPassword",
+                  "value": "currentpass",
+                  "type": "text"
+                },
+                {
+                  "key": "newPassword",
+                  "value": "newpass",
+                  "type": "text"
+                }
+              ]
+            },
+            "url": {
+              "raw": "{{base_url}}/user/changePassword",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "user",
+                "changePassword"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Logout",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{auth_token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/user/logOut",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "user",
+                "logOut"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Delete Account",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{auth_token}}"
+              }
+            ],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "password",
+                  "value": "password123",
+                  "type": "text"
+                }
+              ]
+            },
+            "url": {
+              "raw": "{{base_url}}/user/deleteAccount",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "user",
+                "deleteAccount"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Contact Us",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{auth_token}}"
+              }
+            ],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "subject",
+                  "value": "Support Request",
+                  "type": "text"
+                },
+                {
+                  "key": "message",
+                  "value": "Need help with the app",
+                  "type": "text"
+                }
+              ]
+            },
+            "url": {
+              "raw": "{{base_url}}/user/contactUs",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "user",
+                "contactUs"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Store Response",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{auth_token}}"
+              }
+            ],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "questionId",
+                  "value": "question_id_here",
+                  "type": "text"
+                },
+                {
+                  "key": "response",
+                  "value": "user_response_here",
+                  "type": "text"
+                }
+              ]
+            },
+            "url": {
+              "raw": "{{base_url}}/user/store-response",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "user",
+                "store-response"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Get Questions",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{auth_token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/user/questions",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "user",
+                "questions"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Remove PDF",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{auth_token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/user/removePDF",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "user",
+                "removePDF"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Add to Wishlist",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{auth_token}}"
+              }
+            ],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "shoesId",
+                  "value": "shoes_id_here",
+                  "type": "text"
+                }
+              ]
+            },
+            "url": {
+              "raw": "{{base_url}}/user/wishlist",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "user",
+                "wishlist"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Remove from Wishlist",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{auth_token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/user/wishlist/shoes_id_here",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "user",
+                "wishlist",
+                "shoes_id_here"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Get Wishlist",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{auth_token}}"
+              }
+            ],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "page",
+                  "value": "1",
+                  "type": "text"
+                },
+                {
+                  "key": "limit",
+                  "value": "10",
+                  "type": "text"
+                }
+              ]
+            },
+            "url": {
+              "raw": "{{base_url}}/user/wishlist/all",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "user",
+                "wishlist",
+                "all"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Home Page API",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{auth_token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/user/home",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "user",
+                "home"
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Admin",
+      "item": [
+        {
+          "name": "Admin Login",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "email",
+                  "value": "admin@example.com",
+                  "type": "text"
+                },
+                {
+                  "key": "password",
+                  "value": "adminpass",
+                  "type": "text"
+                }
+              ]
+            },
+            "url": {
+              "raw": "{{base_url}}/admin/login",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "admin",
+                "login"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Admin Forgot Password",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "email",
+                  "value": "admin@example.com",
+                  "type": "text"
+                }
+              ]
+            },
+            "url": {
+              "raw": "{{base_url}}/admin/forgotPassword",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "admin",
+                "forgotPassword"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Admin Verify OTP",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "email",
+                  "value": "admin@example.com",
+                  "type": "text"
+                },
+                {
+                  "key": "otp",
+                  "value": "123456",
+                  "type": "text"
+                }
+              ]
+            },
+            "url": {
+              "raw": "{{base_url}}/admin/verifyOTP",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "admin",
+                "verifyOTP"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Admin Reset Password",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "email",
+                  "value": "admin@example.com",
+                  "type": "text"
+                },
+                {
+                  "key": "otp",
+                  "value": "123456",
+                  "type": "text"
+                },
+                {
+                  "key": "newPassword",
+                  "value": "newadminpass",
+                  "type": "text"
+                }
+              ]
+            },
+            "url": {
+              "raw": "{{base_url}}/admin/resetPassword",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "admin",
+                "resetPassword"
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Categories",
+      "item": [
+        {
+          "name": "Create Category",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{admin_token}}"
+              }
+            ],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "name",
+                  "value": "Running Shoes",
+                  "type": "text"
+                },
+                {
+                  "key": "description",
+                  "value": "Sports running shoes",
+                  "type": "text"
+                },
+                {
+                  "key": "posterImage",
+                  "type": "file"
+                }
+              ]
+            },
+            "url": {
+              "raw": "{{base_url}}/category/",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "category",
+                ""
+              ]
+            }
+          }
+        },
+        {
+          "name": "Get Category",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{admin_token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/category/category_id_here",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "category",
+                "category_id_here"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Update Category",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{admin_token}}"
+              }
+            ],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "categoryId",
+                  "value": "category_id_here",
+                  "type": "text"
+                },
+                {
+                  "key": "name",
+                  "value": "Updated Category Name",
+                  "type": "text"
+                },
+                {
+                  "key": "posterImage",
+                  "type": "file"
+                }
+              ]
+            },
+            "url": {
+              "raw": "{{base_url}}/category/update",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "category",
+                "update"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Delete Category",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{admin_token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/category/category_id_here",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "category",
+                "category_id_here"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Get All Categories",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{auth_token}}"
+              }
+            ],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "page",
+                  "value": "1",
+                  "type": "text"
+                },
+                {
+                  "key": "limit",
+                  "value": "10",
+                  "type": "text"
+                }
+              ]
+            },
+            "url": {
+              "raw": "{{base_url}}/category/all",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "category",
+                "all"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Create Subcategory",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{admin_token}}"
+              }
+            ],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "categoryId",
+                  "value": "category_id_here",
+                  "type": "text"
+                },
+                {
+                  "key": "name",
+                  "value": "Trail Running",
+                  "type": "text"
+                },
+                {
+                  "key": "posterImage",
+                  "type": "file"
+                }
+              ]
+            },
+            "url": {
+              "raw": "{{base_url}}/category/subcategory",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "category",
+                "subcategory"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Update Subcategory",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{admin_token}}"
+              }
+            ],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "subcategoryId",
+                  "value": "subcategory_id_here",
+                  "type": "text"
+                },
+                {
+                  "key": "name",
+                  "value": "Updated Subcategory",
+                  "type": "text"
+                },
+                {
+                  "key": "posterImage",
+                  "type": "file"
+                }
+              ]
+            },
+            "url": {
+              "raw": "{{base_url}}/category/subcategory/update",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "category",
+                "subcategory",
+                "update"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Delete Subcategory",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{admin_token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/category/subcategory/subcategory_id_here",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "category",
+                "subcategory",
+                "subcategory_id_here"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Get Subcategories",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{auth_token}}"
+              }
+            ],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "categoryId",
+                  "value": "category_id_here",
+                  "type": "text"
+                },
+                {
+                  "key": "page",
+                  "value": "1",
+                  "type": "text"
+                },
+                {
+                  "key": "limit",
+                  "value": "10",
+                  "type": "text"
+                }
+              ]
+            },
+            "url": {
+              "raw": "{{base_url}}/category/subcategory/all",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "category",
+                "subcategory",
+                "all"
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Questions",
+      "item": [
+        {
+          "name": "Create Question",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "question",
+                  "value": "What is your foot width?",
+                  "type": "text"
+                },
+                {
+                  "key": "type",
+                  "value": "multiple_choice",
+                  "type": "text"
+                },
+                {
+                  "key": "options",
+                  "value": "[\"Narrow\", \"Medium\", \"Wide\"]",
+                  "type": "text"
+                }
+              ]
+            },
+            "url": {
+              "raw": "{{base_url}}/questions/",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "questions",
+                ""
+              ]
+            }
+          }
+        },
+        {
+          "name": "Get Question by ID",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/questions/question_id_here",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "questions",
+                "question_id_here"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Update Question",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "id",
+                  "value": "question_id_here",
+                  "type": "text"
+                },
+                {
+                  "key": "question",
+                  "value": "Updated question text",
+                  "type": "text"
+                }
+              ]
+            },
+            "url": {
+              "raw": "{{base_url}}/questions/update",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "questions",
+                "update"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Delete Question",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/questions/question_id_here",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "questions",
+                "question_id_here"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Get All Questions",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/questions/",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "questions",
+                ""
+              ]
+            }
+          }
+        },
+        {
+          "name": "Get Questions by Parent",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "parentId",
+                  "value": "parent_question_id",
+                  "type": "text"
+                }
+              ]
+            },
+            "url": {
+              "raw": "{{base_url}}/questions/parent",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "questions",
+                "parent"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Get Child Questions",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "parentId",
+                  "value": "parent_question_id",
+                  "type": "text"
+                }
+              ]
+            },
+            "url": {
+              "raw": "{{base_url}}/questions/getChildQuestions",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "questions",
+                "getChildQuestions"
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Shoes",
+      "item": [
+        {
+          "name": "Get All Shoes (Testing)",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/shoes/allSHOES",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "shoes",
+                "allSHOES"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Create Shoes",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{admin_token}}"
+              }
+            ],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "name",
+                  "value": "Nike Air Max",
+                  "type": "text"
+                },
+                {
+                  "key": "brand",
+                  "value": "Nike",
+                  "type": "text"
+                },
+                {
+                  "key": "categoryId",
+                  "value": "category_id_here",
+                  "type": "text"
+                },
+                {
+                  "key": "subcategoryId",
+                  "value": "subcategory_id_here",
+                  "type": "text"
+                },
+                {
+                  "key": "description",
+                  "value": "Comfortable running shoes",
+                  "type": "text"
+                },
+                {
+                  "key": "price",
+                  "value": "129.99",
+                  "type": "text"
+                },
+                {
+                  "key": "posterImage",
+                  "type": "file"
+                },
+                {
+                  "key": "images",
+                  "type": "file"
+                }
+              ]
+            },
+            "url": {
+              "raw": "{{base_url}}/shoes/",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "shoes",
+                ""
+              ]
+            }
+          }
+        },
+        {
+          "name": "Update Shoes",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{admin_token}}"
+              }
+            ],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "id",
+                  "value": "shoes_id_here",
+                  "type": "text"
+                },
+                {
+                  "key": "name",
+                  "value": "Updated Nike Air Max",
+                  "type": "text"
+                },
+                {
+                  "key": "posterImage",
+                  "type": "file"
+                },
+                {
+                  "key": "images",
+                  "type": "file"
+                }
+              ]
+            },
+            "url": {
+              "raw": "{{base_url}}/shoes/update",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "shoes",
+                "update"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Delete Shoes",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{admin_token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/shoes/shoes_id_here",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "shoes",
+                "shoes_id_here"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Get Shoes by ID",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{auth_token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/shoes/shoes_id_here",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "shoes",
+                "shoes_id_here"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Get All Shoes",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{auth_token}}"
+              }
+            ],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "page",
+                  "value": "1",
+                  "type": "text"
+                },
+                {
+                  "key": "limit",
+                  "value": "10",
+                  "type": "text"
+                },
+                {
+                  "key": "categoryId",
+                  "value": "category_id_here",
+                  "type": "text"
+                }
+              ]
+            },
+            "url": {
+              "raw": "{{base_url}}/shoes/all",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "shoes",
+                "all"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Find Best Matches",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{auth_token}}"
+              }
+            ],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "footLength",
+                  "value": "26.5",
+                  "type": "text"
+                },
+                {
+                  "key": "footWidth",
+                  "value": "10.2",
+                  "type": "text"
+                },
+                {
+                  "key": "archType",
+                  "value": "medium",
+                  "type": "text"
+                }
+              ]
+            },
+            "url": {
+              "raw": "{{base_url}}/shoes/matches/",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "shoes",
+                "matches",
+                ""
+              ]
+            }
+          }
+        },
+        {
+          "name": "Get Sizes by Shoes ID",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{auth_token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/shoes/sizes/shoes_id_here",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "shoes",
+                "sizes",
+                "shoes_id_here"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Create Size",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{admin_token}}"
+              }
+            ],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "shoesId",
+                  "value": "shoes_id_here",
+                  "type": "text"
+                },
+                {
+                  "key": "size",
+                  "value": "42",
+                  "type": "text"
+                },
+                {
+                  "key": "stock",
+                  "value": "10",
+                  "type": "text"
+                }
+              ]
+            },
+            "url": {
+              "raw": "{{base_url}}/shoes/sizes",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "shoes",
+                "sizes"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Update Size",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{admin_token}}"
+              }
+            ],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "id",
+                  "value": "size_id_here",
+                  "type": "text"
+                },
+                {
+                  "key": "stock",
+                  "value": "15",
+                  "type": "text"
+                }
+              ]
+            },
+            "url": {
+              "raw": "{{base_url}}/shoes/sizes/",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "shoes",
+                "sizes",
+                ""
+              ]
+            }
+          }
+        },
+        {
+          "name": "Delete Size",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{admin_token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/shoes/sizes/size_id_here",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "shoes",
+                "sizes",
+                "size_id_here"
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Ratings",
+      "item": [
+        {
+          "name": "Create Rating",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{auth_token}}"
+              }
+            ],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "shoesId",
+                  "value": "shoes_id_here",
+                  "type": "text"
+                },
+                {
+                  "key": "rating",
+                  "value": "5",
+                  "type": "text"
+                },
+                {
+                  "key": "review",
+                  "value": "Great shoes, very comfortable!",
+                  "type": "text"
+                }
+              ]
+            },
+            "url": {
+              "raw": "{{base_url}}/shoes/ratings",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "shoes",
+                "ratings"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Get Rating by ID",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{auth_token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/shoes/ratings/rating_id_here",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "shoes",
+                "ratings",
+                "rating_id_here"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Update Rating",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{auth_token}}"
+              }
+            ],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "id",
+                  "value": "rating_id_here",
+                  "type": "text"
+                },
+                {
+                  "key": "rating",
+                  "value": "4",
+                  "type": "text"
+                },
+                {
+                  "key": "review",
+                  "value": "Updated review text",
+                  "type": "text"
+                }
+              ]
+            },
+            "url": {
+              "raw": "{{base_url}}/shoes/ratings/update",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "shoes",
+                "ratings",
+                "update"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Delete Rating",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{auth_token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/shoes/ratings/rating_id_here",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "shoes",
+                "ratings",
+                "rating_id_here"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Get All Ratings",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "page",
+                  "value": "1",
+                  "type": "text"
+                },
+                {
+                  "key": "limit",
+                  "value": "10",
+                  "type": "text"
+                }
+              ]
+            },
+            "url": {
+              "raw": "{{base_url}}/shoes/ratings/all",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "shoes",
+                "ratings",
+                "all"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Get Ratings by User ID",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{auth_token}}"
+              }
+            ],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "page",
+                  "value": "1",
+                  "type": "text"
+                },
+                {
+                  "key": "limit",
+                  "value": "10",
+                  "type": "text"
+                }
+              ]
+            },
+            "url": {
+              "raw": "{{base_url}}/shoes/ratings/user",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "shoes",
+                "ratings",
+                "user"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Get Ratings by Shoes ID",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{auth_token}}"
+              }
+            ],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "shoesId",
+                  "value": "shoes_id_here",
+                  "type": "text"
+                },
+                {
+                  "key": "page",
+                  "value": "1",
+                  "type": "text"
+                },
+                {
+                  "key": "limit",
+                  "value": "10",
+                  "type": "text"
+                }
+              ]
+            },
+            "url": {
+              "raw": "{{base_url}}/shoes/ratings/shoes",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "shoes",
+                "ratings",
+                "shoes"
+              ]
+            }
+          }
+        }
+      ]
+    }
+  ]
+}
