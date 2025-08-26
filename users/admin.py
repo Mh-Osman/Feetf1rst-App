@@ -1,8 +1,8 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
 from .models import CustomUser  # Changed from User to CustomUser
-from .forms import CustomUserCreationForm, CustomUserChangeForm
-
+from .forms import CustomUserCreationForm, CustomUserChangeForm,ProfileForm
+from .models import Profile
 class CustomUserAdmin(UserAdmin):
     add_form = CustomUserCreationForm
     form = CustomUserChangeForm
@@ -31,3 +31,5 @@ class CustomUserAdmin(UserAdmin):
     ordering = ('email',)
 
 admin.site.register(CustomUser, CustomUserAdmin)  # Changed from User to CustomUser
+
+admin.site.register(Profile) 

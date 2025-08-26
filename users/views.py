@@ -14,6 +14,10 @@ import random
 from django.core.mail import send_mail
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.decorators import permission_classes
+from rest_framework.parsers import MultiPartParser, FormParser
+from rest_framework.decorators import parser_classes
+from .forms import ProfileForm
+from .models import Profile
 @api_view(['POST'])
 def RegisterView(request):
     if request.method == 'POST':
@@ -180,6 +184,97 @@ def ResendOTPView(request):
     )
 
     return Response({"message": "A new OTP has been sent to your email."}, status=status.HTTP_200_OK)
+
+@api_view(['POST'])
+@parser_classes([MultiPartParser, FormParser])
+@permission_classes([IsAuthenticated])
+def ProfileImageView(request):
+    if request.method == 'POST':
+        try:
+            user = request.user
+            data = request.data
+            
+            # Get or create profile - CORRECT APPROACH
+            try:
+                profile = user.profile  # This uses the reverse relationship
+            except Profile.DoesNotExist:
+                profile = Profile.objects.create(user=user)
+ 
+            
+            # Update profile fields
+            if 'location' in data:
+                profile.location = data['location']
+            
+            # Handle profile picture upload
+            if 'profile_picture' in request.FILES:
+                profile.profile_picture = request.FILES['profile_picture']
+            
+            # Save both objects
+            user.save()
+            profile.save()
+            
+            # Build response
+            response_data = {
+                "message": "Profile updated successfully",
+                "profile": {
+                    "first_name": user.first_name,
+                    "last_name": user.last_name,
+                    "email": user.email,
+                    "location": profile.location,
+                    "profile_picture": profile.profile_picture.url if profile.profile_picture else None
+                }
+            }
+            
+            return Response(response_data, status=status.HTTP_200_OK)
+            
+        except Exception as e:
+            return Response({"error": str(e)}, status=status.HTTP_400_BAD_REQUEST)
+    
+    return Response({"error": "Method not allowed"}, status=status.HTTP_405_METHOD_NOT_ALLOWED)
+    
+        
+        
+    
+
+@api_view(['PUT'])
+@permission_classes([IsAuthenticated])
+def UpdateProfileView(request):
+    if request.method == 'PUT':
+        if not request.user.is_authenticated:
+            return Response({"error": "Authentication required"}, status=status.HTTP_401_UNAUTHORIZED)
+        
+        user = request.user
+        data = request.data
+        
+        user.first_name = data.get('first_name', user.first_name)
+        user.last_name = data.get('last_name', user.last_name)
+        user.date_of_birth = data.get('date_of_birth', user.date_of_birth)
+        user.profile.loprofile_picturecation = data.get('location', user.profile.location) 
+        user.profile.image = data.get('profile_picture', user.profile.profile_picture)
+        # profile = Profile.objects.get(user=user)
+        # profile.save()
+        # user.email = data.get('email', user.email)
+        # send_mail(
+        #     subject="Profile Updated",
+        #     message=f"Your profile has been updated successfully.",
+        #     from_email="osmangani1osm@gmail.com",
+        #     recipient_list=[user.email],    
+        # )
+        # # Add other fields as necessary
+        
+        try:
+            user.profile.save()
+            user.save()
+            return Response({"message": "Profile updated successfully"}, status=status.HTTP_200_OK)
+        except Exception as e:
+            return Response({"error": str(e)}, status=status.HTTP_400_BAD_REQUEST)
+        
+        
+    return Response({"error": "Method not allowed"}, status=status.HTTP_405_METHOD_NOT_ALLOWED)
+
+
+
+
 
 @api_view(['POST'])
 @permission_classes([IsAuthenticated])

@@ -7,6 +7,8 @@ from .views import (
     ResetPasswordView,
     LoginView,
     LogoutView,  # Imported the LogoutView
+    UpdateProfileView , # Imported the UpdateProfileView
+    ProfileImageView,
 )
 
 urlpatterns = [
@@ -17,4 +19,6 @@ urlpatterns = [
     path('reset-password/', ResetPasswordView, name='reset-password'),
     path('login/', LoginView, name='login'),
     path('logout/', LogoutView, name='logout'),  # Added logout endpoint
+    path('profile/', ProfileImageView, name='profile'),  # Added profile endpoint
+    path('profile/update/', UpdateProfileView, name='update-profile'),  # Added profile update endpoint
 ]
