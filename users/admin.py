@@ -4,8 +4,8 @@ from .models import CustomUser  # Changed from User to CustomUser
 from .forms import CustomUserCreationForm, CustomUserChangeForm,ProfileForm
 from .models import Profile
 class CustomUserAdmin(UserAdmin):
-    add_form = CustomUserCreationForm
-    form = CustomUserChangeForm
+    # add_form = CustomUserCreationForm
+    # form = CustomUserChangeForm
     model = CustomUser  # Changed from User to CustomUser
     
     # Admin list display - fixed field names

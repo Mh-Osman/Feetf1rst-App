@@ -91,7 +91,7 @@ def VerifyOTPView(request):
         return Response({"error": "Invalid OTP."}, status=status.HTTP_400_BAD_REQUEST)
 
     # Mark as verified
-    user.is_verified = True
+    user.is_active = True
     user.otp = None
     user.otp_created_at = None
     user.save()
@@ -246,11 +246,10 @@ def UpdateProfileView(request):
         user = request.user
         data = request.data
         
-        user.first_name = data.get('first_name', user.first_name)
-        user.last_name = data.get('last_name', user.last_name)
+        user.full_name = data.get('full_name', user.full_name)
         user.date_of_birth = data.get('date_of_birth', user.date_of_birth)
-        user.profile.loprofile_picturecation = data.get('location', user.profile.location) 
-        user.profile.image = data.get('profile_picture', user.profile.profile_picture)
+        user.profile.location = data.get('location', user.profile.location) 
+        user.profile.profile_picture = data.get('profile_picture', user.profile.profile_picture)
         # profile = Profile.objects.get(user=user)
         # profile.save()
         # user.email = data.get('email', user.email)
@@ -284,6 +283,7 @@ def LogoutView(request):
         refresh_token = request.data.get("refresh")
         token = RefreshToken(refresh_token)
         token.blacklist()  # Blacklist the refresh token
+        token.access_token.set_exp(lifetime=timedelta(seconds=1))  # Expire the access token immediately
         return Response({"message": "Logged out successfully"}, status=status.HTTP_205_RESET_CONTENT)
     except Exception as e:
         return Response({"error": "Invalid token"}, status=status.HTTP_400_BAD_REQUEST)
