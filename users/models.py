@@ -59,8 +59,29 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
    
 class Profile(models.Model):
     user = models.OneToOneField(CustomUser, on_delete=models.CASCADE, related_name='profile')
-    profile_picture = models.ImageField(upload_to='profile_pics/', blank=True, null=True)
+    profile_picture = models.ImageField(upload_to='profile_pics/',default='profile_pics/default.png', blank=True, null=True)
     location = models.CharField(max_length=255, blank=True, null=True)
     
     def __str__(self):
         return f"{self.user.full_name}'s Profile"
+
+
+# class question_2(models.Model):
+    
+    
+
+#     def __str__(self):
+#         return f"{self.user.full_name}'s Answer to Question 2"  
+    
+
+class signupOnboarding(models.Model):
+    user = models.OneToOneField(CustomUser, on_delete=models.CASCADE, related_name='onboarding')
+    
+    how_did_you_hear = models.JSONField(blank=True, null=True)  # "Come ha scoperto FeetF1rst?" - can be multiple selections
+    favorite_products = models.CharField(max_length=255, blank=True, null=True)  # "Quali sono i prodotti che utilizzi di più?"
+    foot_or_shoe_issues = models.CharField(max_length=255, blank=True, null=True)  # "C'è qualcosa riguardo a problemi ai piedi o scarpe non adatte?"
+   
+    
+    def __str__(self):
+        return f"{self.user.full_name}'s Onboarding Responses"
+    

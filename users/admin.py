@@ -3,33 +3,86 @@ from django.contrib.auth.admin import UserAdmin
 from .models import CustomUser  # Changed from User to CustomUser
 from .forms import CustomUserCreationForm, CustomUserChangeForm,ProfileForm
 from .models import Profile
-class CustomUserAdmin(UserAdmin):
-    # add_form = CustomUserCreationForm
-    # form = CustomUserChangeForm
-    model = CustomUser  # Changed from User to CustomUser
-    
-    # Admin list display - fixed field names
-    list_display = ['email', 'full_name', 'is_staff', 'is_active']  # Changed 'name' to 'full_name'
-    
-    # User edit page fields organization - fixed field names
+from .models import signupOnboarding
+from django.utils.html import format_html
+from unfold.admin import ModelAdmin
+
+
+class CustomUserAdmin(ModelAdmin):
+    model = CustomUser
+
+    list_display = ['email', 'full_name', 'is_staff', 'is_active', 'profile_picture_tag']
+
     fieldsets = (
         (None, {'fields': ('email', 'password')}),
-        ('Personal info', {'fields': ('full_name', 'date_of_birth')}),  # Changed 'name' to 'full_name', added 'date_of_birth'
+        ('Personal info', {'fields': ('full_name', 'date_of_birth')}), 
         ('Permissions', {'fields': ('is_active', 'is_staff', 'is_superuser', 'groups', 'user_permissions')}),
-        ('Important dates', {'fields': ('last_login', 'date_joined')}),  # Added 'date_joined'
+        ('Important dates', {'fields': ('last_login', 'date_joined')}),
     )
-    
-    # New user creation page fields - fixed field names
+
     add_fieldsets = (
         (None, {
             'classes': ('wide',),
-            'fields': ('email', 'full_name', 'date_of_birth', 'password1', 'password2'),  # Changed 'name' to 'full_name', added 'date_of_birth'
+            'fields': ('email', 'full_name', 'date_of_birth', 'password1', 'password2'),
         }),
     )
-    
-    search_fields = ('email', 'full_name')  # Changed 'name' to 'full_name'
+
+    search_fields = ('email', 'full_name')
     ordering = ('email',)
+
+    # Display profile image from related Profile
+    def profile_picture_tag(self, obj):
+        if hasattr(obj, 'profile') and obj.profile.profile_picture:
+            return format_html(
+                '<img src="{}" style="width:50px; height:50px; object-fit:cover; border-radius:50%"/>',
+                obj.profile.profile_picture.url
+            )
+        return "-"
+    profile_picture_tag.short_description = 'Profile Picture'
 
 admin.site.register(CustomUser, CustomUserAdmin)  # Changed from User to CustomUser
 
-admin.site.register(Profile) 
+
+class ProfileAdmin(ModelAdmin):
+    model = Profile
+
+    list_display = ['user', 'profile_picture_tag', 'location']  # list view
+
+    # readonly_fields = ['profile_picture_tag']  # show image in detail view
+
+    # Method to display image
+    def profile_picture_tag(self, obj):
+        if obj.profile_picture:
+            return format_html(
+                '<img src="{}" style="width:100px; height:100px; object-fit:cover; border-radius:50%"/>',
+                obj.profile_picture.url
+            )
+        return "-"
+    profile_picture_tag.short_description = 'Profile Picture'
+
+admin.site.register(Profile, ProfileAdmin)
+
+class signupOnboardingAdmin(admin.ModelAdmin):
+    # Columns in the list view
+    list_display = ('id', 'how_did_you_hear_clickable', 'favorite_products', 'foot_or_shoe_issues')
+    
+    # Make the clickable field read-only
+    readonly_fields = ('id','how_did_you_hear_clickable', 'favorite_products', 'foot_or_shoe_issues')
+    
+    # Hide raw JSON field from admin form
+    exclude = ('how_did_you_hear',)
+
+    # Specify order of fields in detail/edit form
+    #fields = ('how_did_you_hear_clickable', 'favorite_products', 'foot_or_shoe_issues')
+
+    # Display how_did_you_hear as clickable items
+    def how_did_you_hear_clickable(self, obj):
+        if obj.how_did_you_hear:
+            items = [f'<a href="#">{item}</a>' for item in obj.how_did_you_hear]
+            return format_html(", ".join(items))
+        return "No Response"
+    
+    how_did_you_hear_clickable.short_description = "How did you hear about FeetF1rst?"
+
+# Register the model with admin
+admin.site.register(signupOnboarding, signupOnboardingAdmin)

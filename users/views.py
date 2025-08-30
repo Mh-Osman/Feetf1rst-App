@@ -171,6 +171,7 @@ def ResendOTPView(request):
     except CustomUser.DoesNotExist:
         return Response({"error": "Invalid email."}, status=status.HTTP_404_NOT_FOUND)
 
+    
     otp = str(random.randint(100000, 999999))
     user.otp = otp
     user.otp_created_at = timezone.now()
@@ -287,3 +288,4 @@ def LogoutView(request):
         return Response({"message": "Logged out successfully"}, status=status.HTTP_205_RESET_CONTENT)
     except Exception as e:
         return Response({"error": "Invalid token"}, status=status.HTTP_400_BAD_REQUEST)
+    
