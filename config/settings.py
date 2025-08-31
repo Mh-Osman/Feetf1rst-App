@@ -55,6 +55,7 @@ INSTALLED_APPS = [
     'rest_framework_simplejwt.token_blacklist',  # for refresh token blacklist
     'rest_framework',
     'users',
+    'products',
     
 ]
 

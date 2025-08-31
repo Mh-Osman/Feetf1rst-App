@@ -4,7 +4,9 @@ from .models import CustomUser
 import random
 from django.core.mail import send_mail
 from django.utils import timezone
+from .models import signupOnboarding
 class RegisterSerializer(serializers.ModelSerializer):
+
     password = serializers.CharField(
         write_only=True, 
         required=True, 
@@ -43,7 +45,7 @@ class RegisterSerializer(serializers.ModelSerializer):
         user = CustomUser(**validated_data)
         user.otp = otp
         user.otp_created_at = timezone.now()  # ✅ Store OTP creation time
-        user.is_verified = False
+        user.is_active = False
         user.save()
         user.set_password(password)  # This hashes the password
         user.save()
@@ -59,3 +61,11 @@ class RegisterSerializer(serializers.ModelSerializer):
         )
         
         return user
+
+class signupOnboardingSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = signupOnboarding
+        fields = '__all__'
+        read_only_fields = ('id', 'user')
+        
+

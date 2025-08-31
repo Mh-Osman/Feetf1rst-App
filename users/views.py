@@ -18,6 +18,8 @@ from rest_framework.parsers import MultiPartParser, FormParser
 from rest_framework.decorators import parser_classes
 from .forms import ProfileForm
 from .models import Profile
+from .serializers import signupOnboardingSerializer
+from .models import signupOnboarding
 @api_view(['POST'])
 def RegisterView(request):
     if request.method == 'POST':
@@ -289,3 +291,20 @@ def LogoutView(request):
     except Exception as e:
         return Response({"error": "Invalid token"}, status=status.HTTP_400_BAD_REQUEST)
     
+@api_view(['POST'])
+@permission_classes([IsAuthenticated])
+def signupOnboardingview(request):
+    try:
+        onboarding = signupOnboarding.objects.get(user=request.user)
+        serializer = signupOnboardingSerializer(onboarding, data=request.data, partial=True)
+    except signupOnboarding.DoesNotExist:
+        serializer = signupOnboardingSerializer(data=request.data)
+
+    if serializer.is_valid():
+        serializer.save(user=request.user)
+        return Response({
+            "data": serializer.data,
+            "message": "Onboarding data saved successfully"
+        }, status=status.HTTP_201_CREATED)
+    
+    return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)

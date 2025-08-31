@@ -9,6 +9,7 @@ from .views import (
     LogoutView,  # Imported the LogoutView
     UpdateProfileView , # Imported the UpdateProfileView
     ProfileImageView,
+    signupOnboardingview  # Imported the signupOnboardingview
 )
 
 urlpatterns = [
@@ -21,4 +22,6 @@ urlpatterns = [
     path('logout/', LogoutView, name='logout'),  # Added logout endpoint
     path('profile/', ProfileImageView, name='profile'),  # Added profile endpoint
     path('profile/update/', UpdateProfileView, name='update-profile'),  # Added profile update endpoint
+    path('signuponboarding/', signupOnboardingview, name='onboarding'),  # Added onboarding endpoint
+    
 ]
