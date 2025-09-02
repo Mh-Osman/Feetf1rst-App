@@ -308,3 +308,17 @@ def signupOnboardingview(request):
         }, status=status.HTTP_201_CREATED)
     
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+from .serializers import PdfsSerializer
+from .models import Pdfs
+
+@api_view(['POST'])
+@permission_classes([IsAuthenticated])
+@parser_classes([MultiPartParser, FormParser])
+def PdfsUploadView(request):
+    serializer = PdfsSerializer(data=request.data)
+
+    if serializer.is_valid():
+        serializer.save(user=request.user)  # attach logged-in user
+        return Response({"message": "PDF uploaded successfully"}, status=status.HTTP_201_CREATED)
+    return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)

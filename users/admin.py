@@ -86,3 +86,16 @@ class signupOnboardingAdmin(admin.ModelAdmin):
 
 # Register the model with admin
 admin.site.register(signupOnboarding, signupOnboardingAdmin)
+
+from .models import Pdfs
+class PdfsAdmin(admin.ModelAdmin):
+    list_display = ('id', 'user', 'file_link', 'uploaded_at')
+    readonly_fields = ('id', 'uploaded_at', 'file_link')
+
+    def file_link(self, obj):
+        if obj.file:
+            return format_html('<a href="{}" target="_blank">Download PDF</a>', obj.file.url)
+        return "No File"
+    file_link.short_description = "PDF File"
+
+admin.site.register(Pdfs, PdfsAdmin)

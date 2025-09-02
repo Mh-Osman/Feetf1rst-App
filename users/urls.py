@@ -9,7 +9,8 @@ from .views import (
     LogoutView,  # Imported the LogoutView
     UpdateProfileView , # Imported the UpdateProfileView
     ProfileImageView,
-    signupOnboardingview  # Imported the signupOnboardingview
+    signupOnboardingview , # Imported the signupOnboardingview]
+    PdfsUploadView,  # Imported the PdfsUploadView
 )
 
 urlpatterns = [
@@ -23,5 +24,6 @@ urlpatterns = [
     path('profile/', ProfileImageView, name='profile'),  # Added profile endpoint
     path('profile/update/', UpdateProfileView, name='update-profile'),  # Added profile update endpoint
     path('signuponboarding/', signupOnboardingview, name='onboarding'),  # Added onboarding endpoint
+    path('upload-pdf/', PdfsUploadView, name='upload-pdf'),
     
 ]

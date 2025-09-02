@@ -5,6 +5,7 @@ import random
 from django.core.mail import send_mail
 from django.utils import timezone
 from .models import signupOnboarding
+from .models import Pdfs
 class RegisterSerializer(serializers.ModelSerializer):
 
     password = serializers.CharField(
@@ -69,3 +70,8 @@ class signupOnboardingSerializer(serializers.ModelSerializer):
         read_only_fields = ('id', 'user')
         
 
+class PdfsSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Pdfs
+        fields = ['id', 'user', 'file', 'uploaded_at']
+        read_only_fields = ['id', 'uploaded_at', 'user',]

@@ -85,3 +85,13 @@ class signupOnboarding(models.Model):
     def __str__(self):
         return f"{self.user.full_name}'s Onboarding Responses"
     
+
+class Pdfs(models.Model):
+    user = models.ForeignKey(CustomUser, on_delete=models.CASCADE, related_name='pdfs')
+    file = models.FileField(upload_to='user_pdfs/')
+    uploaded_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"PDF for {self.user.full_name} uploaded at {self.uploaded_at}"
+    
+
